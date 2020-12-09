@@ -1,4 +1,4 @@
-from yaml import dump
+from yaml import dump, load, Loader
 
 import re
 
@@ -8,6 +8,12 @@ def get_filename(project_template):
     filename = filename.lower()
     filename = re.sub('[^\w\-_\. ]', '_', filename)
     return filename + ".qvew"
+
+def open_project(filename):
+    with open(filename, "r") as file:
+        contents = file.read()
+        return load(contents, Loader=Loader)
+
 
 def save_project(project_template):
     project_template["file_name"] = str(get_filename(project_template))

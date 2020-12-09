@@ -1,5 +1,11 @@
+import tkinter as tk
+from tkinter import filedialog
+
 import PySimpleGUI as sg
-from serialization import save_project 
+from serialization import save_project, open_project
+
+root = tk.Tk()
+root.withdraw()
 
 # Define menu
 menu_def = [ 
@@ -33,11 +39,19 @@ imported_clips = []
 while True:
     event, values = window.read()
     if event in (None, 'Exit'):
-        print(project)
         break
     if event == 'Save':
         project["project_name"] = values["__PROJECT_NAME__"]
         save_project(project)
+        sg.Save()
+    if event == 'Open':
+        file_path = filedialog.askopenfilename(filetypes = (("qVEW File", "*.qvew"), ("All files", "*")))
+        project = open_project(file_path)
+        
+        window['clipslistordered'].update(project["imported_clips"])
+        window['__PROJECT_NAME__'].update(project["project_name"])
+        selected_clip = ""
+
     if event == 'clipspaths':
         fnames = (values['clipspaths']).split(";")
         all_clips = fnames
