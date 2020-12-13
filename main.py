@@ -4,7 +4,9 @@ from tkinter import filedialog
 from collections import OrderedDict 
 
 import PySimpleGUI as sg
+
 from serialization import save_project, open_project
+from edit import edit_project
 
 root = tk.Tk()
 root.withdraw()
@@ -43,6 +45,9 @@ while True:
     event, values = window.read()
     if event in (None, 'Exit'):
         break
+    if event == 'To MP4':
+        sg.popup_non_blocking("Trying to export to MP4...")
+        edit_project(project)
     if event == 'Setup':
         for c in project["imported_clips"]:
             capt = "Decription for: " + c.split("/")[-1]
