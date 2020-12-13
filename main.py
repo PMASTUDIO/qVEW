@@ -46,6 +46,9 @@ while True:
     if event in (None, 'Exit'):
         break
     if event == 'To MP4':
+        project["project_name"] = values["__PROJECT_NAME__"]
+        save_project(project)
+
         sg.popup_non_blocking("Trying to export to MP4...")
         edit_project(project)
     if event == 'Setup':
@@ -64,7 +67,6 @@ while True:
     if event == 'Save':
         project["project_name"] = values["__PROJECT_NAME__"]
         save_project(project)
-        sg.Save()
     if event == 'Open':
         file_path = filedialog.askopenfilename(filetypes = (("qVEW File", "*.qvew"), ("All files", "*")))
         project = open_project(file_path)

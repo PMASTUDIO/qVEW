@@ -10,9 +10,10 @@ def get_filename(project_template):
     return filename + ".qvew"
 
 def open_project(filename):
-    with open(filename, "r") as file:
-        contents = file.read()
-        return load(contents, Loader=Loader)
+    if len(filename) > 0:
+        with open(filename, "r") as file:
+            contents = file.read()
+            return load(contents, Loader=Loader)
 
 
 def save_project(project_template):
